@@ -28,24 +28,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home>
-    with AutomaticKeepAliveClientMixin<Home>, TickerProviderStateMixin {
+    with AutomaticKeepAliveClientMixin<Home> {
   List<Widget> _children = [
     FindScreen(),
     FindScreen(),
   ];
   int currentIndex = 0;
-  AnimationController commonScrollController;
-  // ScrollController commonScrollController = ScrollController();
   ListQueue<int> _navigationQueue = ListQueue();
-  bool isShow = true;
   @override
   void initState() {
     super.initState();
-    //commonScrollController = ScrollController();
-    commonScrollController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 2),
-    );
   }
 
   @override
