@@ -1,7 +1,32 @@
 # findanimal
 
-A new Flutter project.
+<h3> 플러터 경기도 유기견 찾기 </h3>
+<hr>
+<strong>스터디 주별 목표 </strong>
+<br><br>
+<ul style="list-style:none;">
+  <ol><strong>1주 </strong>기본 화면 구축 및 시 별 검색</ol>
+  <ol><strong>2주 </strong>검색 결과 및 상세 보기</ol>
+  <ol><strong>3주 </strong>카카오 or 구글 맵 이용 위치 찾기</ol>
+</ul>
+<h4> 기본 bottomnavigator 구축</h4>
+```
+void main() {
+  runApp(LayoutBuilder(
+    builder: (context, constraints) {
+      return GetMaterialApp(
+        home: Home(),
+        getPages: [
+          GetPage(name: '/find', page: () => FindScreen()),
+          GetPage(name: '/search', page: () => SearchForm()),
 
+        ],
+        title: '경기도 유기동물',
+      );
+    },
+  ));
+}
+```
 ## Getting Started
 
 This project is a starting point for a Flutter application.
