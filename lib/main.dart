@@ -4,18 +4,19 @@ import 'package:findanimal/component/searchform.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
-import 'view/FindScreen.dart';
+import 'view/FindScreen_GridView.dart';
+import 'view/FindScreen_ListView.dart';
 
 void main() {
   runApp(LayoutBuilder(
     builder: (context, constraints) {
       return GetMaterialApp(
         home: Home(),
-        getPages: [
-          GetPage(name: '/find', page: () => FindScreen()),
-          GetPage(name: '/search', page: () => SearchForm()),
+        // getPages: [
+        //   GetPage(name: '/find', page: () => FindScreen()),
+        //   GetPage(name: '/search', page: () => SearchForm()),
 
-        ],
+        // ],
         title: '경기도 유기동물',
       );
     },
@@ -30,8 +31,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home>
     with AutomaticKeepAliveClientMixin<Home> {
   List<Widget> _children = [
-    FindScreen(),
-    FindScreen(),
+    FindScreenGridView(),
+    FindScreenListView(),
   ];
   int currentIndex = 0;
   ListQueue<int> _navigationQueue = ListQueue();
@@ -102,19 +103,24 @@ class _HomeState extends State<Home>
       bottomNavigationBar: Wrap(children: [
         WillPopScope(
           child: BottomNavigationBar(
-            backgroundColor: Color(0xFF141d24),
+            backgroundColor: Color(0xFF74a4f2),
+            selectedLabelStyle: TextStyle(fontFamily: 'NanumPen'),
+            unselectedLabelStyle: TextStyle(fontFamily: 'NanumPen'),
             currentIndex: currentIndex,
             selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.grey,
+            unselectedItemColor: Color(0xff767e88),
             type: BottomNavigationBarType.fixed,
             onTap: changeMenu,
             elevation: 5,
-            iconSize: 40,
+            iconSize: 30,
+            selectedFontSize: 18,
+            unselectedFontSize: 18,
             items: [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.dashboard_outlined), label: '홈'),
+
+                  icon: Icon(Icons.dashboard_outlined), label: '홈', ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.home_repair_service_outlined), label: 'A/S'),
+                  icon: Icon(Icons.list_alt_outlined),label: '두번째 탭'),
             ],
           ),
           onWillPop: _onWillPop,
