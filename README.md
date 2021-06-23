@@ -7,7 +7,7 @@
 <ul style="list-style:none;">
   <ol><strong>1주 </strong>기본 화면 구축 및 시 별 검색</ol>
   <ol><strong>2주 </strong>검색 결과 및 상세 보기</ol>
-  <ol><strong>3주 </strong>카카오 or 구글 맵 이용 위치 찾기</ol>
+  <ol><strong>3주 </strong>네이버 맵 이용 위치 찾기</ol>
 </ul>
 
 
@@ -20,11 +20,6 @@ void main() {
     builder: (context, constraints) {
       return GetMaterialApp(
         home: Home(),
-        getPages: [
-          GetPage(name: '/find', page: () => FindScreen()),
-          GetPage(name: '/search', page: () => SearchForm()),
-
-        ],
         title: '경기도 유기동물',
       );
     },
@@ -116,19 +111,24 @@ Widget build(BuildContext context) {
       bottomNavigationBar: Wrap(children: [
         WillPopScope(
           child: BottomNavigationBar(
-            backgroundColor: Color(0xFF141d24),
+            backgroundColor: Color(0xFF74a4f2),
+            selectedLabelStyle: TextStyle(fontFamily: 'NanumPen'),
+            unselectedLabelStyle: TextStyle(fontFamily: 'NanumPen'),
             currentIndex: currentIndex,
             selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.grey,
+            unselectedItemColor: Color(0xff767e88),
             type: BottomNavigationBarType.fixed,
             onTap: changeMenu,
             elevation: 5,
-            iconSize: 40,
+            iconSize: 30,
+            selectedFontSize: 18,
+            unselectedFontSize: 18,
             items: [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.dashboard_outlined), label: '홈'),
+
+                  icon: Icon(Icons.dashboard_outlined), label: '홈', ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.home_repair_service_outlined), label: 'A/S'),
+                  icon: Icon(Icons.list_alt_outlined),label: '두번째 탭'),
             ],
           ),
           onWillPop: _onWillPop,
