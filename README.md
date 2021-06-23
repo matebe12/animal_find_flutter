@@ -139,3 +139,33 @@ Widget build(BuildContext context) {
 </code>
 </pre>
 
+## 그리드뷰
+
+#### SliverGridDelegateWithMaxCrossAxisExtent 는 넓이 지정
+#### childAspectRatio 는 너비/넓이에 따라 항목의 크기를 결정
+#### maxCrossAxisExtent는 최대 넓이
+
+```
+GridView.builder(
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200,
+                childAspectRatio: 3 / 2,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20),
+            itemCount: 20,
+            itemBuilder: (BuildContext ctx, index) {
+              return Card(elevation: 2, child: Center(child: Text('$index ')));
+            })
+```
+
+
+## 리스트뷰
+
+```
+ListView.builder(
+            itemCount: 20,
+            itemBuilder: (BuildContext ctx, index) {
+              return ListTile(title:Text('리스트 $index '), leading: Icon(Icons.ac_unit),);
+            })
+```
+
