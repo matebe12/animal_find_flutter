@@ -1,6 +1,5 @@
 import 'dart:collection';
-
-import 'package:findanimal/component/searchform.dart';
+import 'package:findanimal/view/FindRead.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -12,11 +11,12 @@ void main() {
     builder: (context, constraints) {
       return GetMaterialApp(
         home: Home(),
-        // getPages: [
+         getPages: [
         //   GetPage(name: '/find', page: () => FindScreen()),
-        //   GetPage(name: '/search', page: () => SearchForm()),
+        GetPage(name: '/readPage', page: () => FindRead()),
 
-        // ],
+        ],
+        theme: ThemeData(fontFamily: 'NanumPen'),
         title: '경기도 유기동물',
       );
     },

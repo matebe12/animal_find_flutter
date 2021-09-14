@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:findanimal/util/Search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:search_page/search_page.dart';
@@ -81,7 +80,7 @@ class _FindScreenGridViewState extends State<FindScreenGridView> {
       List row = body['AbdmAnimalProtect'][1]['row'];
       if (code == 'INFO-000') {
         print(row);
-        controller.setDogList(row, gubun,si);
+        controller.setDogList(row, gubun, si);
         setState(() {
           totalIndex =
               (body['AbdmAnimalProtect'][0]['head'][0]['list_total_count'] / 10)
@@ -108,8 +107,7 @@ class _FindScreenGridViewState extends State<FindScreenGridView> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<TestController>(
-        builder: (_) => 
-        Scaffold(
+        builder: (_) => Scaffold(
             floatingActionButton: FloatingActionButton(
               onPressed: () {
                 scrollController.animateTo(0.0,
@@ -172,9 +170,8 @@ class _FindScreenGridViewState extends State<FindScreenGridView> {
             body: Column(
               children: [
                 Expanded(
-
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(3.0),
                     child: GridView.builder(
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                             maxCrossAxisExtent: 200,
@@ -184,19 +181,31 @@ class _FindScreenGridViewState extends State<FindScreenGridView> {
                         itemCount: controller.dogList.length,
                         controller: scrollController,
                         itemBuilder: (BuildContext ctx, index) {
-                          return GridTile(
-                            
-                            footer: Text('${controller.dogList[index]['PROTECT_PLC']}'),
-                              child: Column(children: [
-                            Image.network(
-                              controller.dogList[index]['THUMB_IMAGE_COURS'],
-                              height: 100,
-                              width: 100,
-                              cacheWidth: 100,
-                              cacheHeight: 100,
-                              fit: BoxFit.cover,
-                            ),
-                          ]));
+                          return InkWell(
+                              onTap: () {
+                                Get.toNamed('/readPage',
+                                    arguments: controller.dogList[index]);
+                              },
+                              child: GridTile(
+                                  footer: Column(
+                                    children: [
+                                      Text(
+                                          '${controller.dogList[index]['SIGUN_NM']}'),
+                                      Text(
+                                          '${controller.dogList[index]['SPECIES_NM']}'),
+                                    ],
+                                  ),
+                                  child: Column(children: [
+                                    Image.network(
+                                      controller.dogList[index]
+                                          ['THUMB_IMAGE_COURS'],
+                                      height: 150,
+                                      width: 150,
+                                      cacheWidth: 100,
+                                      cacheHeight: 100,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ])));
                         }),
                   ),
                 ),
