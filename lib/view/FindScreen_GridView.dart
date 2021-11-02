@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:findanimal/util/Global.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:search_page/search_page.dart';
 import 'dart:convert';
 
@@ -17,44 +19,11 @@ class _FindScreenGridViewState extends State<FindScreenGridView> {
   int pIndex = 1;
   int totalIndex = 0;
   String currentSi = '';
-  List<String> siList = [
-    '수원시',
-    '용인시',
-    '성남시',
-    '부천시',
-    '화성시',
-    '안산시',
-    '평택시',
-    '안양시',
-    '시흥시',
-    '김포시',
-    '광주시',
-    '광명시',
-    '군포시',
-    '하남시',
-    '오산시',
-    '이천시',
-    '안성시',
-    '의왕시',
-    '양평군',
-    '여주시',
-    '과천시',
-    '고양시',
-    '남양주시',
-    '파주시',
-    '의정부시',
-    '양주시',
-    '구리시',
-    '포천시',
-    '양평군',
-    '동두천시',
-    '가평군',
-    '연천군',
-    '전체'
-  ];
+  var logger = Logger();
+
+  ///[initState] init단계에서는 전체 검색
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     setDogList(pIndex, true, '');
     scrollController = ScrollController();
@@ -62,14 +31,12 @@ class _FindScreenGridViewState extends State<FindScreenGridView> {
       if (scrollController.position.maxScrollExtent ==
           scrollController.offset) {
         if (pIndex <= totalIndex) {
-          print('dfd $pIndex');
-          print('dfd $currentSi');
           setDogList(pIndex, false, currentSi);
         }
       }
     });
   }
-
+  ///[setDogList] 유기견 검색
   void setDogList(int index, bool gubun, String si) async {
     try {
       if (si == '전체') si = '';
@@ -88,6 +55,9 @@ class _FindScreenGridViewState extends State<FindScreenGridView> {
           pIndex = pIndex + 1;
         });
         print(pIndex);
+        logger.i(pIndex);
+        logger.d(pIndex);
+        logger.e(pIndex);
       }
     } catch (e) {
       Get.showSnackbar(GetBar(
@@ -99,6 +69,7 @@ class _FindScreenGridViewState extends State<FindScreenGridView> {
     }
   }
 
+  ///[setTopPosition] 검색이나 플루팅 버튼 클릭시 트랜지션으로 top 이동
   void setTopPosition() {
     scrollController.animateTo(0.0,
         duration: Duration(milliseconds: 300), curve: Curves.easeOut);
@@ -129,7 +100,7 @@ class _FindScreenGridViewState extends State<FindScreenGridView> {
                       showSearch<String>(
                           context: context,
                           delegate: SearchPage(
-                            items: siList,
+                            items: Global.siList,
                             searchLabel: '지역',
                             suggestion: Center(
                               child: Text('지역을 검색해주세요.'),
@@ -161,10 +132,9 @@ class _FindScreenGridViewState extends State<FindScreenGridView> {
               centerTitle: true,
               title: Text(
                 controller.title1,
-                style: TextStyle(fontFamily: 'NanumPen'),
+                 style: TextStyle(fontSize: 13),
               ),
               elevation: 0.1,
-              backgroundColor: Color(0xFF74a4f2),
               automaticallyImplyLeading: true,
             ),
             body: Column(
@@ -175,9 +145,8 @@ class _FindScreenGridViewState extends State<FindScreenGridView> {
                     child: GridView.builder(
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                             maxCrossAxisExtent: 200,
-                            childAspectRatio: 3 / 3,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: 20),
+                            childAspectRatio: 0.95,
+                            mainAxisSpacing: 10),
                         itemCount: controller.dogList.length,
                         controller: scrollController,
                         itemBuilder: (BuildContext ctx, index) {
@@ -190,7 +159,7 @@ class _FindScreenGridViewState extends State<FindScreenGridView> {
                                   footer: Column(
                                     children: [
                                       Text(
-                                          '${controller.dogList[index]['SIGUN_NM']}'),
+                                          '${controller.dogList[index]['SIGUN_NM']}', ),
                                       Text(
                                           '${controller.dogList[index]['SPECIES_NM']}'),
                                     ],

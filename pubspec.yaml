@@ -29,6 +29,7 @@ dependencies:
     get: ^3.24.0
     dio: ^3.0.10
     search_page: ^1.4.0+1
+    logger: ^0.9.4
 dev_dependencies:
     flutter_test:
         sdk: flutter

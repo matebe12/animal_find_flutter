@@ -4,20 +4,22 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import 'view/FindScreen_GridView.dart';
-import 'view/FindScreen_ListView.dart';
+import 'view/Setting.dart';
 
 void main() {
   runApp(LayoutBuilder(
     builder: (context, constraints) {
       return GetMaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Home(),
          getPages: [
         //   GetPage(name: '/find', page: () => FindScreen()),
         GetPage(name: '/readPage', page: () => FindRead()),
-
         ],
-        theme: ThemeData(fontFamily: 'NanumPen'),
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
         title: '경기도 유기동물',
+
       );
     },
   ));
@@ -29,7 +31,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home>
-    with AutomaticKeepAliveClientMixin<Home> {
+    {
   List<Widget> _children = [
     FindScreenGridView(),
     FindScreenListView(),
@@ -45,7 +47,7 @@ class _HomeState extends State<Home>
   void dispose() {
     super.dispose();
   }
-
+  ///[changeMenu]  메뉴를 바꾼다. 인덱스와 현재 인덱스가 다를 경우에 큐에서 해당 인덱스를 지우고 마지막에 다시 추가한다. 
   void changeMenu(int index) {
     if (index != currentIndex) {
       _navigationQueue.removeWhere((element) => element == index);
@@ -56,7 +58,7 @@ class _HomeState extends State<Home>
       print(_navigationQueue);
     }
   }
-
+  ///[_onWillPop] 뒤로가기를 누를시에 나타나는 이벤트 종료 할 것인지 한번 확인을 한다. 큐가 비어있을 때는 확인창. 큐에 데이터들이 남아있다면 마지막 인덱스부터 지운다.
   Future<bool> _onWillPop() async {
     //Navigator.of(context).pop();
     if (_navigationQueue.isEmpty) {
@@ -103,12 +105,7 @@ class _HomeState extends State<Home>
       bottomNavigationBar: Wrap(children: [
         WillPopScope(
           child: BottomNavigationBar(
-            backgroundColor: Color(0xFF74a4f2),
-            selectedLabelStyle: TextStyle(fontFamily: 'NanumPen'),
-            unselectedLabelStyle: TextStyle(fontFamily: 'NanumPen'),
             currentIndex: currentIndex,
-            selectedItemColor: Colors.white,
-            unselectedItemColor: Color(0xff767e88),
             type: BottomNavigationBarType.fixed,
             onTap: changeMenu,
             elevation: 5,
@@ -117,10 +114,9 @@ class _HomeState extends State<Home>
             unselectedFontSize: 18,
             items: [
               BottomNavigationBarItem(
-
-                  icon: Icon(Icons.dashboard_outlined), label: '홈', ),
+                  icon: Icon(Icons.dashboard_outlined, size: 20,), label: '홈',),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.list_alt_outlined),label: '두번째 탭'),
+                  icon: Icon(Icons.settings, size: 20,),label: '설정'),
             ],
           ),
           onWillPop: _onWillPop,
@@ -128,8 +124,4 @@ class _HomeState extends State<Home>
       ]),
     );
   }
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
 }
