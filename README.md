@@ -6,8 +6,7 @@
 <br><br>
 <ul style="list-style:none;">
   <ol><strong>1주 </strong>기본 화면 구축 및 시 별 검색</ol>
-  <ol><strong>2주 </strong>검색 결과 및 상세 보기</ol>
-  <ol><strong>3주 </strong>네이버 맵 이용 위치 찾기</ol>
+  <ol><strong>2주 </strong>검색 결과 및 상세 보기  테마 </ol>
 </ul>
 
 
@@ -149,7 +148,7 @@ Widget build(BuildContext context) {
 GridView.builder(
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 200,
-                childAspectRatio: 3 / 2,
+                childAspectRatio: 0.95,
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20),
             itemCount: 20,
@@ -158,14 +157,4 @@ GridView.builder(
             })
 ```
 
-
-## 리스트뷰
-
-```
-ListView.builder(
-            itemCount: 20,
-            itemBuilder: (BuildContext ctx, index) {
-              return ListTile(title:Text('리스트 $index '), leading: Icon(Icons.ac_unit),);
-            })
-```
 
